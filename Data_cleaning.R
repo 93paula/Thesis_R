@@ -24,8 +24,8 @@ reservations_data$ArrivalDay[reservations_data$ArrivalDay == 'tirsdag'] <- 'tues
 reservations_data$ArrivalDay[reservations_data$ArrivalDay == 'onsdag'] <- 'wednesday'
 reservations_data$ArrivalDay[reservations_data$ArrivalDay == 'torsdag'] <- 'thursday'
 reservations_data$ArrivalDay[reservations_data$ArrivalDay == 'fredag'] <- 'friday'
-reservations_data$ArrivalDay[reservations_data$ArrivalDay == 'lørdag'] <- 'saturday'
-reservations_data$ArrivalDay[reservations_data$ArrivalDay == 'søndag'] <- 'sunday'
+reservations_data$ArrivalDay[reservations_data$ArrivalDay == 'lÃ¸rdag'] <- 'saturday'
+reservations_data$ArrivalDay[reservations_data$ArrivalDay == 'sÃ¸ndag'] <- 'sunday'
 
 reservations_data$ArrivalMonth = months(as.Date(reservations_data$Arrival), TRUE)
 
@@ -38,17 +38,15 @@ reservations_data$Company = ifelse(reservations_data$CompanyID == 0,0,1)
 
 ################################ DATA CLEANING #####################################
 ##Pris - Remove negative price
-#negative_price <- subset(reservations_data, reservations_data$Price < 0) #219 obs
 reservations_data <- subset(reservations_data, reservations_data$Price >= 0)
 
 ##Afdeling 
-#Remove rows with NA afdeling (2 obs)
+#Remove rows with NA afdeling
 reservations_data <- subset(reservations_data, is.na(reservations_data$Department) == FALSE)
-#Remove observations after 03-10-2017 for TH department due to renovations
+#Remove observations for TH department
 reservations_data <- subset(reservations_data, reservations_data$Department != "TH")
-#reservations_data <- reservations_data[!(reservations_data$Department == "TH" & reservations_data$Arrival >= '2017-10-03'),]
 
-##Værelsestype
+##VÃ¦relsestype
 room_types <- c('D/T', 'JUSU', 'FAM', 'RUN', 'RUNF', 'R272', 'STUD', 'EXSU', 'XS', 'S 1', 'M', 'Msea', 'L', 'Fami', 'Brid', 'DB2', 'FAML', '4R', '6R', '4B', 'DB', 'FA')
 reservations_data <- subset(reservations_data, (reservations_data$RoomType %in% room_types) == TRUE)
 
@@ -62,7 +60,6 @@ reservations_data <- subset(reservations_data, (reservations_data$BookingType %i
 reservations_data <- subset(reservations_data, reservations_data$NoDays > 0)
 
 #Time booking
-#negative_TimeBooking <- subset(reservations_data, reservations_data$LeadTime < 0)
 reservations_data <- subset(reservations_data, reservations_data$LeadTime > 0)
 
 #CancellationTime
@@ -82,7 +79,7 @@ reservations_data$Country[reservations_data$Country == 'B'] <- 'BE'
 ##Ankomst og Afrejse
 reservations_data <- subset(reservations_data, reservations_data$Arrival != reservations_data$Departure)
 
-##Antal gæster
+##Antal gÃ¦ster
 reservations_data <- subset(reservations_data, reservations_data$NoAdults + reservations_data$NoChildren > 0)
 reservations_data <- subset(reservations_data, reservations_data$NoAdults > 0)
 
