@@ -12,7 +12,6 @@ source_url('https://gist.githubusercontent.com/fawda123/7471137/raw/466c1474d0a5
 
 
 ################################ GET DATA - GENERAL #####################################
-setwd('/Users/paula/Desktop/Speciale/R _Studio')
 reservations_data <- data.frame
 reservations_data = read.csv('reservations_data.csv')
 final_data <- data.frame(reservations_data)
